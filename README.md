@@ -1,70 +1,190 @@
-# Getting Started with Create React App
+# FitClub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Built with React](https://img.shields.io/badge/built%20with-React-blue)](#tech-stack)
 
-## Available Scripts
+A single-page React application for planning and tracking workouts. This repository contains only the frontend (no backend, no authentication, no automated tests). Styling is done with SCSS.
 
-In the project directory, you can run:
+> Minimal, component-driven fitness UI — great as a static SPA or for integrating with any backend later.
 
-### `npm start`
+Table of contents
+- [About](#about)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Run (development)](#run-development)
+  - [Build (production)](#build-production)
+  - [SCSS workflow](#scss-workflow)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+About
+-----
+FitClub is a frontend-only React application for creating and following workout routines and logging progress locally (e.g., local state or localStorage). The project intentionally omits backend, authentication, and testing to keep the scope focused on UI and UX.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Features
+--------
+- React single-page application (SPA)
+- Component-based architecture for workouts, routines and logs
+- Responsive UI (mobile-first)
+- Styling with SCSS (Sass)
+- Local-only persistence (localStorage) by default
+- Easy to extend: add a backend, auth, or tests later
 
-### `npm test`
+Tech stack
+----------
+- React (Create React App, Vite, or similar)
+- SCSS (Sass) for styling
+- Optional: React Router for navigation, Zustand/Redux for global state
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Project structure (suggested)
+-----------------------------
+Example layout — adapt to your repo:
 
-### `npm run build`
+```
+/ (root)
+├─ public/                 # static files (favicon, index.html)
+├─ src/
+│  ├─ assets/              # images, fonts
+│  ├─ components/          # reusable components
+│  │  ├─ WorkoutCard/
+│  │  │  ├─ WorkoutCard.jsx
+│  │  │  └─ WorkoutCard.module.scss
+│  ├─ pages/               # route-level components
+│  ├─ styles/              # global SCSS files (variables, mixins)
+│  │  ├─ _variables.scss
+│  │  └─ main.scss
+│  ├─ App.jsx
+│  └─ index.jsx
+├─ .gitignore
+└─ README.md
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Getting started
+---------------
+These instructions assume a frontend-only React project. Replace commands if you use a specific starter (Vite, CRA, Next.js, etc.).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Prerequisites
+- Node.js >= 16 and npm (or Yarn)
+- Optional: npx (comes with npm) for scaffolding
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/vyshnave1997/Fitclub.git
+   cd Fitclub
+   ```
 
-### `npm run eject`
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you don't yet have Sass in your project, install it:
+```bash
+npm install --save-dev sass
+# or
+yarn add --dev sass
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run (development)
+-----------------
+Start the app in development mode:
+```bash
+npm start
+# or
+yarn start
+```
+This opens the app at http://localhost:3000 (or the port configured by your toolchain).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Build (production)
+------------------
+Create a production build:
+```bash
+npm run build
+# or
+yarn build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+SCSS workflow
+-------------
+You can write SCSS files anywhere under `src/` and import them into your components:
+- For Create React App or Vite: import './styles/main.scss' or `import './Component.module.scss'` directly — ensure `sass` is installed.
+- Example global entry in `src/index.jsx`:
+  ```js
+  import './styles/main.scss';
+  ```
 
-## Learn More
+Optional: Add npm scripts for manual SCSS watch/build (if you prefer compiling outside the bundler):
+```json
+"scripts": {
+  "start": "react-scripts start",
+  "build": "react-scripts build",
+  "scss:watch": "sass --watch src/styles:src/styles",
+  "scss:build": "sass src/styles:dist/styles --no-source-map"
+}
+```
+Note: If you rely on your bundler's built-in Sass support (recommended), the `scss:watch` scripts are optional.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Local data & persistence
+------------------------
+FitClub ships without a backend. Use:
+- local component state
+- Context / Redux / Zustand for app-wide state
+- localStorage or IndexedDB for lightweight persistence
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+If you later add a backend, swap local persistence for API calls.
 
-### Code Splitting
+Deployment
+----------
+You can deploy the static build to many hosts:
+- GitHub Pages
+- Netlify (drag & drop or connect repository)
+- Vercel (import project)
+- Any static hosting / CDN
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Contributing
+------------
+Contributions are welcome. Suggested workflow:
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m "Add feature"`
+4. Push to your branch: `git push origin feature/your-feature`
+5. Open a Pull Request
 
-### Analyzing the Bundle Size
+Because the project currently has no CI or tests, please:
+- Keep changes focused and small
+- Add documentation for any new patterns or scripts
+- Use SCSS variables/mixins for consistent styling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Recommended additional files
+- CONTRIBUTING.md (contribution guidelines)
+- CODE_OF_CONDUCT.md
+- .editorconfig and Prettier / ESLint configs
 
-### Making a Progressive Web App
+License
+-------
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Contact
+-------
+Maintainer: vyshnave1997
+- GitHub: https://github.com/vyshnave1997
 
-### Advanced Configuration
+Acknowledgements
+----------------
+Thanks to the open source community and libraries that make building UIs fast and enjoyable.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you want, I can:
+- Generate a minimal SCSS setup (example variables, mixins, and a main.scss) and add component examples.
+- Update README to include exact scripts based on the actual package.json in your repo (I can scan the repo and auto-fill commands). Tell me which option you prefer.
